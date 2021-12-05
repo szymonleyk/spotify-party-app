@@ -21,14 +21,14 @@ public class AuthorizeService {
                 "client_id", client.getId(),
                 "response_type", "code",
                 "redirect_uri", UriUtils.decode("http://localhost:8080/callback", "UTF-8"),
-                "scope", scopes());
-    }
-
-    private String scopes() {
-        return List.of(Scope.values()).stream().map(scope -> scope.getName()).collect(Collectors.joining(" "));
+                "scope", client.getScope());
     }
 
     public Token getToken(String code) {
         return spotifyRestClient.getToken(code);
+    }
+
+    public Token refreshToken(String refreshToken) {
+        return spotifyRestClient.refreshToken(refreshToken);
     }
 }

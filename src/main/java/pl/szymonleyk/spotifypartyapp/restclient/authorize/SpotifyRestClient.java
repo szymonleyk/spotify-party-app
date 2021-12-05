@@ -38,6 +38,26 @@ public class SpotifyRestClient {
         return response.getBody();
     }
 
+    public Token refreshToken(String refreshToken) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setBasicAuth(client.getId(), client.getSecret());
+
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("refresh_token", refreshToken);
+        map.add("grant_type","refresh_token");
+
+
+        HttpEntity<MultiValueMap<String, String>> request =
+                new HttpEntity<>(map, headers);
+
+        ResponseEntity<Token> response = restTemplate.
+                postForEntity(SpotifyUrl.ACCOUNTS +"/api/token", request, Token.class);
+
+        return response.getBody();
+    }
+
     ///
 
 //    public String getDevice(){
