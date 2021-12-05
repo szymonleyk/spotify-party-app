@@ -8,4 +8,5 @@ import lombok.Setter;
 public class Client {
     private String id;
     private String secret;
+    private String scope;
 }
