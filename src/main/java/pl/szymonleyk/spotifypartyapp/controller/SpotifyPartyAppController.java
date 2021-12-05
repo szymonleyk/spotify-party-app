@@ -17,6 +17,6 @@ public class SpotifyPartyAppController {
     public String getPlaylists (Model model){
         List<Playlist> playlists = spotifyPartyAppClient.getAllPlaylists();
         model.addAttribute("playlists", playlists);
-        return "playlists.xhtml";
+        return "playlists.html";
     }
 }
