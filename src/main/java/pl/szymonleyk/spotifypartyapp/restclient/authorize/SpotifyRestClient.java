@@ -8,7 +8,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriUtils;
 import pl.szymonleyk.spotifypartyapp.config.Client;
+import pl.szymonleyk.spotifypartyapp.restclient.authorize.dto.PlaylistsResponse;
 import pl.szymonleyk.spotifypartyapp.restclient.authorize.dto.Token;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -16,6 +19,7 @@ public class SpotifyRestClient {
 
     private RestTemplate restTemplate = new RestTemplate();
     private final Client client;
+    private Token token;
 
     public Token getToken(String code) {
         HttpHeaders headers = new HttpHeaders();
@@ -34,8 +38,8 @@ public class SpotifyRestClient {
 
         ResponseEntity<Token> response = restTemplate.
                 postForEntity(SpotifyUrl.ACCOUNTS +"/api/token", request, Token.class);
-
-        return response.getBody();
+        token = response.getBody();
+        return token;
     }
 
     public Token refreshToken(String refreshToken) {
@@ -54,6 +58,19 @@ public class SpotifyRestClient {
 
         ResponseEntity<Token> response = restTemplate.
                 postForEntity(SpotifyUrl.ACCOUNTS +"/api/token", request, Token.class);
+
+        return response.getBody();
+    }
+
+    public PlaylistsResponse getAllPlaylists() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token.getAccessToken());
+
+        HttpEntity<String> request =
+                new HttpEntity<>("", headers);
+
+        ResponseEntity<PlaylistsResponse> response = restTemplate.exchange(SpotifyUrl.API_V1+"/me/playlists", HttpMethod.GET, request, PlaylistsResponse.class);
 
         return response.getBody();
     }

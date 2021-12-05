@@ -3,9 +3,16 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <title>Home</title>
+    <title>Playlists</title>
 </head>
 <body>
-    <a href="/playlists">Playlists</a>
+
+<ol>
+    <li th:each="playlist: ${playlists}">
+        <span th:text="${playlist}"></span>
+    </li>
+</ol>
+
+
 </body>
 </html>
