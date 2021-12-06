@@ -1,7 +1,7 @@
 package pl.szymonleyk.spotifypartyapp.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -17,7 +17,7 @@ public class HomeController {
         return "home.html";
     }
 
-    @GetMapping("/party-add")
+    @PostMapping("/party-add")
     public String addParty() {
         return "party-add.html";
     }
