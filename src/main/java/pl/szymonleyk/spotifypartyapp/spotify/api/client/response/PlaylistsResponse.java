@@ -1,8 +1,8 @@
-package pl.szymonleyk.spotifypartyapp.restclient.authorize.dto;
+package pl.szymonleyk.spotifypartyapp.spotify.api.client.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.Item;
 
 import java.io.Serializable;
 import java.util.List;

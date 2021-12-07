@@ -1,4 +1,4 @@
-package pl.szymonleyk.spotifypartyapp.restclient.authorize.dto;
+package pl.szymonleyk.spotifypartyapp.spotify.api.client.dto;
 
 import lombok.Getter;
 import lombok.Setter;

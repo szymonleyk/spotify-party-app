@@ -23,8 +23,6 @@ public class ArtistsController {
                 .bodyToMono(String.class)
                 .block();
 
-        System.out.println(body);
-
         return "redirect:/home";
     }
 }
