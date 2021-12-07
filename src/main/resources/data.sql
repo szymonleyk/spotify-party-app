@@ -1,1 +1,1 @@
-INSERT INTO party (name) VALUES ('SYLWESTER');
+INSERT INTO party (name) VALUES ('Sylwester');

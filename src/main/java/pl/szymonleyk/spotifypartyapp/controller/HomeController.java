@@ -16,9 +16,4 @@ public class HomeController {
     public String home() {
         return "home.html";
     }
-
-    @PostMapping("/party-add")
-    public String addParty() {
-        return "party-add.html";
-    }
 }

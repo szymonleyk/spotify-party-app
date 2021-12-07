@@ -34,6 +34,12 @@ public class PartyController {
         party.getPlaylists().forEach(playlist -> playlist.setParty(party));
         // todo: pobrać tracki dla wszystkich playlist i przypisać do playlist (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlists-tracks)
         partyService.save(party);
-        return "redirect:/home";
+        return "redirect:/party-list";
+    }
+
+    @GetMapping("/party-list")
+    public String partyList(Model model){
+        model.addAttribute("parties", partyService.findAll());
+        return "party-list.html";
     }
 }
