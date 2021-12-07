@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PartyController {
 
-    private final PlaylistService playlistService;
     private final SpotifyApiClient spotifyApiClient;
     private final PartyService partyService;
 
@@ -33,6 +32,7 @@ public class PartyController {
     @PostMapping("/party-add")
     public String add(@ModelAttribute("party") Party party){
         party.getPlaylists().forEach(playlist -> playlist.setParty(party));
+        // todo: pobrać tracki dla wszystkich playlist i przypisać do playlist (https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlists-tracks)
         partyService.save(party);
         return "redirect:/home";
     }
