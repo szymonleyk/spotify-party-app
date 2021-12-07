@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.szymonleyk.spotifypartyapp.model.Party;
 import pl.szymonleyk.spotifypartyapp.repository.PartyRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PartyService {
@@ -14,4 +16,7 @@ public class PartyService {
         partyRepository.save(party);
     }
 
+    public List<Party> findAll() {
+        return partyRepository.findAll();
+    }
 }
