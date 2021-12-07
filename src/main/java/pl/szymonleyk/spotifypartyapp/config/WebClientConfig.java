@@ -42,9 +42,9 @@ public class WebClientConfig {
                 new ServletOAuth2AuthorizedClientExchangeFilterFunction(authorizedClientManager);
 
         oauth2Client.setDefaultClientRegistrationId("spotify");
-
         return WebClient.builder()
                 .apply(oauth2Client.oauth2Configuration())
+                .baseUrl("https://api.spotify.com/v1")
                 .build();
     }
 }

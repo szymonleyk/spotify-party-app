@@ -10,9 +10,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().authenticated()
+
+                .antMatchers("/h2-console/**").permitAll()
+                .and()
+                .headers().frameOptions().disable()
+                .and()
+                .csrf().ignoringAntMatchers("/h2-console/**")
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .oauth2Login()
-                .defaultSuccessUrl("/home");
+                .defaultSuccessUrl("/home")
+                .and()
+                .cors().disable();
     }
 }
