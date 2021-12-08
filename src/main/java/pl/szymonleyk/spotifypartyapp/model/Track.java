@@ -1,6 +1,7 @@
 package pl.szymonleyk.spotifypartyapp.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Track {
 
     @Id
@@ -19,4 +21,10 @@ public class Track {
 
     private String uri;
     private String name;
+    private Integer duration;
+
+    public Track(String name, Integer duration) {
+        this.name = name;
+        this.duration = duration;
+    }
 }
