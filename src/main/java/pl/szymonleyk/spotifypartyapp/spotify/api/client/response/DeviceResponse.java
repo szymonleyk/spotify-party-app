@@ -8,10 +8,10 @@ import java.io.Serializable;
 @Setter
 public class DeviceResponse implements Serializable {
     private String id;
-    private boolean is_active;
-    private boolean is_private_session;
-    private boolean is_restricted;
+    private boolean isActive;
+    private boolean isPrivateSession;
+    private boolean isRestricted;
     private String name;
     private String type;
-    private int volume_percentage;
+    private int volumePercentage;
 }
