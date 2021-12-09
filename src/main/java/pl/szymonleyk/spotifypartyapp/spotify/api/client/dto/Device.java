@@ -1,4 +1,4 @@
-package pl.szymonleyk.spotifypartyapp.spotify.api.client.response;
+package pl.szymonleyk.spotifypartyapp.spotify.api.client.dto;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class DeviceResponse implements Serializable {
+public class Device implements Serializable {
     private String id;
     private boolean isActive;
     private boolean isPrivateSession;

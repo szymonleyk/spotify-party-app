@@ -3,7 +3,7 @@ package pl.szymonleyk.spotifypartyapp.spotify.api.client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.DeviceResponse;
+import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.DevicesResponse;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.PlaylistsResponse;
 
 @Component
@@ -22,12 +22,12 @@ public class SpotifyApiClient {
         return body;
     }
 
-    public DeviceResponse getDevices() {
-        DeviceResponse body = webClient
+    public DevicesResponse getDevices() {
+        DevicesResponse body = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path("/me/player/devices").build())
                 .retrieve()
-                .bodyToMono(DeviceResponse.class)
+                .bodyToMono(DevicesResponse.class)
                 .block();
         return body;
     }
