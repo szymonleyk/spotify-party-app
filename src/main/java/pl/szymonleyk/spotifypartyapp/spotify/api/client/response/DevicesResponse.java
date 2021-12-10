@@ -9,7 +9,5 @@ import java.util.List;
 @Getter
 @Setter
 public class DevicesResponse implements Serializable {
-
     private List<Device> devices;
-
 }

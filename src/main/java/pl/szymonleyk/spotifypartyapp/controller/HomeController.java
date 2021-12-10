@@ -26,10 +26,4 @@ public class HomeController {
     public String home() {
         return "home.html";
     }
-
-    @GetMapping("/get-devices")
-    public String getDevices() {
-        List<DevicesResponse> devices = List.of(spotifyApiClient.getDevices());
-        return "devices";
-    }
 }
