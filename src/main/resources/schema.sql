@@ -1,6 +1,7 @@
 drop table if exists track;
 drop table if exists playlist;
 drop table if exists party;
+drop table if exists user;
 
 CREATE TABLE IF NOT EXISTS party
 (
@@ -26,3 +27,10 @@ CREATE TABLE IF NOT EXISTS track
     FOREIGN KEY (playlist_id) REFERENCES playlist (id)
 );
 
+CREATE TABLE IF NOT EXISTS user
+(
+    id       int primary key auto_increment,
+    username varchar(255) not null,
+    password varchar(255) not null,
+    role     enum ('ADMIN', 'USER')
+);

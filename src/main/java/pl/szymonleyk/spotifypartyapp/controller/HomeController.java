@@ -19,11 +19,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String main(){
-        return "redirect:/home";
-    }
-
-    @GetMapping("/home")
-    public String home() {
-        return "home.html";
+        return "redirect:/party-list";
     }
 }
