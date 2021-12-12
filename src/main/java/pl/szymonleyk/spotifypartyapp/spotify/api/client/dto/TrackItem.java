@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class Item implements Serializable {
-    private String uri;
-    private String name;
+public class TrackItem implements Serializable {
+    private Track track;
 }
