@@ -16,4 +16,8 @@ public class PlaylistService {
    public List<Playlist> getPlaylists(){
        return playlistRepository.findAll();
    }
+
+    public List<Playlist> findByPartyId(int id) {
+       return playlistRepository.findByPartyId(id);
+    }
 }
