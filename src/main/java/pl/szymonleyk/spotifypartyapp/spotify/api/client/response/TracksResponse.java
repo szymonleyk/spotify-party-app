@@ -2,16 +2,16 @@ package pl.szymonleyk.spotifypartyapp.spotify.api.client.response;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.PlaylistItem;
+import pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.TrackItem;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
-public class PlaylistsResponse implements Serializable {
+public class TracksResponse implements Serializable {
     private String href;
-    private List<PlaylistItem> items;
+    private List<TrackItem> items;
     private int limit;
     private String next;
     private int offset;
