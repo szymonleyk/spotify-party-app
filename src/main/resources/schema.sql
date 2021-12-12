@@ -1,7 +1,7 @@
-drop table if exists track;
-drop table if exists playlist;
-drop table if exists party;
-drop table if exists user;
+-- drop table if exists track;
+-- drop table if exists playlist;
+-- drop table if exists party;
+-- drop table if exists user;
 
 CREATE TABLE IF NOT EXISTS party
 (
