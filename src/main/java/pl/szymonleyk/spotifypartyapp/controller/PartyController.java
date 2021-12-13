@@ -14,6 +14,7 @@ import pl.szymonleyk.spotifypartyapp.service.PlaylistService;
 import pl.szymonleyk.spotifypartyapp.service.TrackService;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.SpotifyApiClient;
 import pl.szymonleyk.spotifypartyapp.service.PartyService;
+import pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.Device;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.TracksResponse;
 
 import java.util.stream.Collectors;
@@ -61,5 +62,13 @@ public class PartyController {
     public String partyDetailsTracks(Model model, @PathVariable int id){
         model.addAttribute("tracks", trackService.findByPlaylistId(id));
         return "party-details-tracks.html";
+    }
+
+    @GetMapping("/playback-state")
+    public String playbackState(Model model){
+        model.addAttribute("device", spotifyApiClient.getPlaybackState().getDevice());
+        model.addAttribute("isPlaying", spotifyApiClient.getPlaybackState().isPlaying());
+        model.addAttribute("progressMs", spotifyApiClient.getPlaybackState().getProgressMs());
+        return "playback-state.html";
     }
 }
