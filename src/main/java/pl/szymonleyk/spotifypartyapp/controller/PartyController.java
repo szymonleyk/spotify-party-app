@@ -63,12 +63,4 @@ public class PartyController {
         model.addAttribute("tracks", trackService.findByPlaylistId(id));
         return "party-details-tracks.html";
     }
-
-    @GetMapping("/playback-state")
-    public String playbackState(Model model){
-        model.addAttribute("device", spotifyApiClient.getPlaybackState().getDevice());
-        model.addAttribute("isPlaying", spotifyApiClient.getPlaybackState().isPlaying());
-        model.addAttribute("progressMs", spotifyApiClient.getPlaybackState().getProgressMs());
-        return "playback-state.html";
-    }
 }
