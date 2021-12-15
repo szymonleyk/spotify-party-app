@@ -42,4 +42,13 @@ public class SpotifyApiClient {
                 .block();
         return body;
     }
+
+    public void addItemToPlaybackQueue(String uri) {
+        webClient
+                .post()
+                .uri(uriBuilder -> uriBuilder.path("/me/player/queue").queryParam("uri", uri).queryParam("device_id", getDevices().getDevices().get(0).getId()).build())
+                .retrieve()
+                .bodyToMono(Void.class)
+                .block();
+    }
 }
