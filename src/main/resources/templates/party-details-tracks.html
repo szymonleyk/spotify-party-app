@@ -33,7 +33,7 @@
         <div class="ms-2 me-auto">
             <div class="fw-bold" th:text="${track.name}"></div>
         </div>
-        <span class="badge bg-primary rounded-pill" th:text="${track.durationMs}"></span>
+        <a th:href="@{/play/{uri}(uri = ${track.uri})}">play</a>
     </li>
 </ol>
 
