@@ -7,10 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import pl.szymonleyk.spotifypartyapp.model.Track;
 
 import java.time.Instant;
 import java.util.Date;
 import java.util.Optional;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -36,8 +39,8 @@ public class DynamicSchedulingPlayerConfig implements SchedulingConfigurer {
                     Optional<Date> lastCompletionTime =
                             Optional.ofNullable(context.lastCompletionTime());
                     Instant nextExecutionTime =
-                            lastCompletionTime.orElseGet(Date::new).toInstant()
-                                    .plusMillis(tickService.getDelay());
+                            lastCompletionTime.orElseGet(Date::new).toInstant();
+//                                    .plusMillis(tickService.getDelay());
                     return Date.from(nextExecutionTime);
                 }
         );

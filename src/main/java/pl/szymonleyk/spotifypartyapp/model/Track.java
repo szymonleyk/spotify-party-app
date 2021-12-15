@@ -1,13 +1,12 @@
 package pl.szymonleyk.spotifypartyapp.model;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -19,12 +18,33 @@ public class Track {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String spotifyId;
     private String uri;
     private String name;
-    private Integer duration;
 
-    public Track(String name, Integer duration) {
-        this.name = name;
-        this.duration = duration;
+    @Column(name="duration_ms")
+    private int durationMs;
+    private int popularity;
+    private String type;
+    private String href;
+
+    @ManyToOne
+    @JoinColumn(name = "playlist_id")
+    private Playlist playlist;
+
+    public Track(pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.Track track, Playlist playlist){
+        spotifyId = track.getId();
+        uri = track.getUri();
+        name = track.getName();
+        durationMs = track.getDurationMs();
+        popularity = track.getPopularity();
+        type = track.getType();
+        href = track.getHref();
+        this.playlist = playlist;
+    }
+
+    public Track(String uri, int durationMs) {
+        this.uri = uri;
+        this.durationMs = durationMs;
     }
 }

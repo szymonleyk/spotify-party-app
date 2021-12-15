@@ -10,10 +10,12 @@ import java.io.Serializable;
 @Getter
 @Setter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class Token implements Serializable {
-    private String accessToken;
-    private String tokenType;
-    private String scope;
-    private int expiresIn;
-    private String refreshToken;
+public class Track implements Serializable {
+    private int durationMs;
+    private String id;
+    private String name;
+    private int popularity;
+    private String type;
+    private String uri;
+    private String href;
 }

@@ -10,10 +10,12 @@ import java.io.Serializable;
 @Getter
 @Setter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class Token implements Serializable {
-    private String accessToken;
-    private String tokenType;
-    private String scope;
-    private int expiresIn;
-    private String refreshToken;
+public class Device implements Serializable {
+    private String id;
+    private Boolean isActive;
+    private Boolean isPrivateSession;
+    private Boolean isRestricted;
+    private String name;
+    private String type;
+    private int volumePercent;
 }

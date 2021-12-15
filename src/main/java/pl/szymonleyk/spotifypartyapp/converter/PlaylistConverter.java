@@ -21,7 +21,7 @@ public class PlaylistConverter implements Converter<String, Playlist> {
     public Playlist convert(String uri) {
         log.info("Trying to convert uri=" + uri + " into a playlist");
 
-        List<Playlist> allPlaylists = spotifyApiClient.getPlaylists().getItems().stream().map(i -> new Playlist(i.getUri(), i.getName())).collect(Collectors.toList());
+        List<Playlist> allPlaylists = spotifyApiClient.getPlaylists().getItems().stream().map(i -> new Playlist(i.getId(), i.getUri(), i.getName())).collect(Collectors.toList());
 
         return allPlaylists.stream().filter(p -> p.getUri().equals(uri)).findFirst().get();
     }
