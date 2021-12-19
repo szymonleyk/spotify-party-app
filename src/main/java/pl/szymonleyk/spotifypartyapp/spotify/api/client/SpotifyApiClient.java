@@ -1,6 +1,7 @@
 package pl.szymonleyk.spotifypartyapp.spotify.api.client;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.DevicesResponse;
@@ -8,6 +9,7 @@ import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.PlaybackStateRe
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.PlaylistsResponse;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.TracksResponse;
 
+@Log4j2
 @Component
 @RequiredArgsConstructor
 public class SpotifyApiClient {
@@ -54,12 +56,12 @@ public class SpotifyApiClient {
         return body;
     }
 
-    public void addItemToPlaybackQueue(String uri) {
+    public void addItemToPlaybackQueue(String uri, String deviceId) {
         webClient
                 .post()
-                .uri(uriBuilder -> uriBuilder.path("/me/player/queue").queryParam("uri", uri).queryParam("device_id", getDevices().getDevices().get(0).getId()).build())
+                .uri(uriBuilder -> uriBuilder.path("/me/player/queue").queryParam("uri", uri).queryParam("device_id", deviceId).build())
                 .retrieve()
-                .bodyToMono(Void.class)
-                .block();
+                .bodyToMono(String.class)
+                .subscribe(System.out::println);
     }
 }

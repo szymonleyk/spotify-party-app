@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.szymonleyk.spotifypartyapp.model.Party;
 import pl.szymonleyk.spotifypartyapp.model.Playlist;
 import pl.szymonleyk.spotifypartyapp.model.Track;
+import pl.szymonleyk.spotifypartyapp.schedule.Player;
 import pl.szymonleyk.spotifypartyapp.service.PlaylistService;
 import pl.szymonleyk.spotifypartyapp.service.TrackService;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.SpotifyApiClient;
@@ -17,6 +18,7 @@ import pl.szymonleyk.spotifypartyapp.service.PartyService;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.Device;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.TracksResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
 
 @Controller
@@ -27,6 +29,7 @@ public class PartyController {
     private final PartyService partyService;
     private final PlaylistService playlistService;
     private final TrackService trackService;
+    private final Player player;
 
     @GetMapping("/party-add")
     public String addForm(Model model) {
