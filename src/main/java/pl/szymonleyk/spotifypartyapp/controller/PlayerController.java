@@ -19,19 +19,19 @@ import java.util.Optional;
 public class PlayerController {
     private final PlayerService playerService;
 
-    @GetMapping("/play/{uri}")
-    public String partyDetailsTracks(@PathVariable String uri, HttpServletRequest request){
+    @GetMapping("/party-details/{id}/play/{uri}")
+    public String partyDetailsTracks(@PathVariable String id, @PathVariable String uri, HttpServletRequest request){
         Optional<String> maybeDeviceId = playerService.getActiveDeviceId();
         if(maybeDeviceId.isPresent()) {
-            playerService.sendTrackToSpotify(uri, maybeDeviceId.get());
+            playerService.sendTrackToSpotify(Integer.valueOf(id), uri, maybeDeviceId.get());
         }
 
         return "redirect:"+request.getHeader("Referer");
     }
 
-    @GetMapping("/unlock/{uri}")
-    public String unlockTrack(@PathVariable String uri, HttpServletRequest request){
-        playerService.unlockTrack(uri);
+    @GetMapping("/party-details/{id}/unlock/{uri}")
+    public String unlockTrack(@PathVariable String id, @PathVariable String uri, HttpServletRequest request){
+        playerService.unlockTrack(Integer.valueOf(id), uri);
 
         return "redirect:"+request.getHeader("Referer");
     }
