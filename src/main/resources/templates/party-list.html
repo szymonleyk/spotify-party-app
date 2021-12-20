@@ -5,18 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <link th:href="@{/styles/styles.css}" rel="stylesheet"/>
     <title>Party list</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Spotify Party App</a>
+        <a class="navbar-brand" href="/">Spotify Party</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon bg-secondary"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown" float-right>
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/party-add">Add party</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
                 </li>
@@ -24,11 +28,15 @@
         </div>
     </div>
 </nav>
-<div class="d-grid gap-2 col-6 mx-auto" th:each="party: ${parties}">
-    <a role="button" class="btn btn-success btn-lg" th:text="${party.name}" th:href="@{/party-details/{id}(id = ${party.id})}"/><br><br>
-</div>
-<div class="d-grid gap-2 col-6 mx-auto">
-    <a role="button" class="btn btn-outline-success" href="/party-add">Dodaj imprezę</a>
-</div>
+<main>
+    <div class="card" th:each="party: ${parties}">
+        <img class="card-img-top" th:src="@{${'/images/'+party.image+'.jpg'}}" alt="${party.name}">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${party.name}"/>
+            <p class="card-text" th:text="${party.description}"/>
+            <a th:href="@{/party-details/{id}(id = ${party.id})}" class="btn btn-secondary">Join the party</a>
+        </div>
+    </div>
+</main>
 </body>
 </html>

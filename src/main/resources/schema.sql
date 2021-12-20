@@ -5,8 +5,12 @@
 
 CREATE TABLE IF NOT EXISTS party
 (
-    id   int primary key auto_increment,
-    name varchar(255) not null
+    id          int primary key auto_increment,
+    name        varchar(255) not null,
+    start_date  timestamp    not null,
+    end_date    timestamp,
+    description varchar(500),
+    image       varchar(500)
 );
 
 CREATE TABLE IF NOT EXISTS playlist

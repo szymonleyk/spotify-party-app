@@ -1,0 +1,29 @@
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show > .nav-link {
+    color: var(--bs-gray-400);
+}
+
+.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover,
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show > .nav-link:hover {
+    color: var(--bs-gray-100);
+}
+
+main {
+    height: 100vh;
+    background-color: #121212;
+    padding-top: 55px;
+}
+
+.card {
+    margin: 12px;
+    background-color: #cbcbcb;
+}
+
+.card-img, .card-img-top {
+    border-radius: 0;
+}
+
+footer.fixed-bottom {
+    text-align: center;
+    color: var(--bs-gray-600);
+}
