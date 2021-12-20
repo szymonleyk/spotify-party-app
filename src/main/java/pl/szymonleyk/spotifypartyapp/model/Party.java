@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,16 @@ public class Party {
     private Integer id;
 
     private String name;
+
+    @Column(name="start_date")
+    private LocalDateTime startDate;
+
+    @Column(name="end_date")
+    private LocalDateTime endDate;
+
+    private String description;
+
+    private String image;
 
     @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
     private List<Playlist> playlists;
