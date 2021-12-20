@@ -2,6 +2,7 @@ package pl.szymonleyk.spotifypartyapp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.szymonleyk.spotifypartyapp.model.Playlist;
 import pl.szymonleyk.spotifypartyapp.model.Track;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.SpotifyApiClient;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.Device;
@@ -15,26 +16,33 @@ import java.util.Optional;
 public class PlayerService {
     private final SpotifyApiClient spotifyApiClient;
     private final TrackService trackService;
+    private final PlaylistService playlistService;
 
     public Optional<String> getActiveDeviceId(){
         List<Device> devices = spotifyApiClient.getDevices().getDevices();
         return devices.stream().filter(d -> d.getIsActive()).map(d -> d.getId()).findFirst();
     }
 
-    public void sendTrackToSpotify(String uri, String deviceId) {
+    public void sendTrackToSpotify(int id, String uri, String deviceId) {
         spotifyApiClient.addItemToPlaybackQueue(uri, deviceId);
-        setTrackInactive(uri);
+        setTrackInactive(id, uri);
     }
 
-    private void setTrackInactive(String uri) {
-        Track track = trackService.findByUri(uri);
-        track.setIsActive(false);
-        trackService.save(track);
+    private void setTrackInactive(int id, String uri) {
+        Optional<Playlist> maybePlaylist = playlistService.findById(id);
+        if(maybePlaylist.isPresent()){
+            Track track = trackService.findByUri(maybePlaylist.get(), uri);
+            track.setIsActive(false);
+            trackService.save(track);
+        }
     }
 
-    public void unlockTrack(String uri) {
-        Track track = trackService.findByUri(uri);
-        track.setIsActive(true);
-        trackService.save(track);
+    public void unlockTrack(int id, String uri) {
+        Optional<Playlist> maybePlaylist = playlistService.findById(id);
+        if(maybePlaylist.isPresent()) {
+            Track track = trackService.findByUri(maybePlaylist.get(), uri);
+            track.setIsActive(true);
+            trackService.save(track);
+        }
     }
 }

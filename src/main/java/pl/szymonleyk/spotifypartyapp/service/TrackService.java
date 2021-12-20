@@ -2,6 +2,7 @@ package pl.szymonleyk.spotifypartyapp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.szymonleyk.spotifypartyapp.model.Playlist;
 import pl.szymonleyk.spotifypartyapp.model.Track;
 import pl.szymonleyk.spotifypartyapp.repository.TrackRepository;
 
@@ -20,8 +21,8 @@ public class TrackService {
         return trackRepository.countTracksByIsActiveAndPlaylistId(true, id);
     }
 
-    public Track findByUri(String uri){
-        return trackRepository.findFirstByUri(uri);
+    public Track findByUri(Playlist playlist, String uri){
+        return trackRepository.findFirstByPlaylistAndUri(playlist, uri);
     }
 
     public void save(Track track){
