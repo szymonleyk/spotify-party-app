@@ -17,15 +17,21 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 public class PlayerController {
-    private final SpotifyApiClient spotifyApiClient;
     private final PlayerService playerService;
 
     @GetMapping("/play/{uri}")
     public String partyDetailsTracks(@PathVariable String uri, HttpServletRequest request){
         Optional<String> maybeDeviceId = playerService.getActiveDeviceId();
         if(maybeDeviceId.isPresent()) {
-            spotifyApiClient.addItemToPlaybackQueue(uri, maybeDeviceId.get());
+            playerService.sendTrackToSpotify(uri, maybeDeviceId.get());
         }
+
+        return "redirect:"+request.getHeader("Referer");
+    }
+
+    @GetMapping("/unlock/{uri}")
+    public String unlockTrack(@PathVariable String uri, HttpServletRequest request){
+        playerService.unlockTrack(uri);
 
         return "redirect:"+request.getHeader("Referer");
     }

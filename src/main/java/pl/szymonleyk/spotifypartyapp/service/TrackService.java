@@ -15,4 +15,16 @@ public class TrackService {
     public List<Track> findByPlaylistId(int id){
         return trackRepository.findByPlaylistId(id);
     }
+
+    public int countTracksByIsActiveAndPlaylistId(int id){
+        return trackRepository.countTracksByIsActiveAndPlaylistId(true, id);
+    }
+
+    public Track findByUri(String uri){
+        return trackRepository.findFirstByUri(uri);
+    }
+
+    public void save(Track track){
+        trackRepository.save(track);
+    }
 }

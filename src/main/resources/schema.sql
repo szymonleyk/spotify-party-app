@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS track
     popularity  int          not null,
     type        varchar(255) not null,
     href        varchar(255) not null,
+    is_active   boolean,
     FOREIGN KEY (playlist_id) REFERENCES playlist (id)
 );
 

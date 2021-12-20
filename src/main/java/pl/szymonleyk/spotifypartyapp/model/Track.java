@@ -28,6 +28,9 @@ public class Track {
     private String type;
     private String href;
 
+    @Column(name = "is_active")
+    private Boolean isActive = true;
+
     @ManyToOne
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
