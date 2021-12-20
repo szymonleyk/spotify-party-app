@@ -54,10 +54,10 @@ public class SpotifyApiClient {
         return body;
     }
 
-    public void addItemToPlaybackQueue(String uri) {
+    public void addItemToPlaybackQueue(String uri, String deviceId) {
         webClient
                 .post()
-                .uri(uriBuilder -> uriBuilder.path("/me/player/queue").queryParam("uri", uri).queryParam("device_id", getDevices().getDevices().get(0).getId()).build())
+                .uri(uriBuilder -> uriBuilder.path("/me/player/queue").queryParam("uri", uri).queryParam("device_id", deviceId).build())
                 .retrieve()
                 .bodyToMono(Void.class)
                 .block();
