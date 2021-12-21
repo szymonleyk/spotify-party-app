@@ -10,6 +10,7 @@ import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.DevicesResponse
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 
 @Service
 @RequiredArgsConstructor
@@ -18,19 +19,27 @@ public class PlayerService {
     private final TrackService trackService;
     private final PlaylistService playlistService;
 
-    public Optional<String> getActiveDeviceId(){
+    public Optional<String> getActiveDeviceId() {
         List<Device> devices = spotifyApiClient.getDevices().getDevices();
         return devices.stream().filter(d -> d.getIsActive()).map(d -> d.getId()).findFirst();
     }
 
-    public void sendTrackToSpotify(int id, String uri, String deviceId) {
+    public void sendTrackToSpotify(int playlistId, String uri, String deviceId) {
         spotifyApiClient.addItemToPlaybackQueue(uri, deviceId);
-        setTrackInactive(id, uri);
+        setTrackInactive(playlistId, uri);
+    }
+
+    public void sendRandomTracksToSpotify(int playlistId, String deviceId, int limit) {
+        Queue<String> tracks = trackService.findRandomTracks(playlistId, limit);
+        tracks.forEach(uri -> {
+            spotifyApiClient.addItemToPlaybackQueue(uri, deviceId);
+            setTrackInactive(playlistId, uri);
+        });
     }
 
     private void setTrackInactive(int id, String uri) {
         Optional<Playlist> maybePlaylist = playlistService.findById(id);
-        if(maybePlaylist.isPresent()){
+        if (maybePlaylist.isPresent()) {
             Track track = trackService.findByUri(maybePlaylist.get(), uri);
             track.setIsActive(false);
             trackService.save(track);
@@ -39,7 +48,7 @@ public class PlayerService {
 
     public void unlockTrack(int id, String uri) {
         Optional<Playlist> maybePlaylist = playlistService.findById(id);
-        if(maybePlaylist.isPresent()) {
+        if (maybePlaylist.isPresent()) {
             Track track = trackService.findByUri(maybePlaylist.get(), uri);
             track.setIsActive(true);
             trackService.save(track);

@@ -29,6 +29,16 @@ public class PlayerController {
         return "redirect:"+request.getHeader("Referer");
     }
 
+    @GetMapping("/party-details/{id}/play")
+    public String partyDetailsTracksLimit(@PathVariable String id, @RequestParam String limit, HttpServletRequest request){
+        Optional<String> maybeDeviceId = playerService.getActiveDeviceId();
+        if(maybeDeviceId.isPresent()) {
+            playerService.sendRandomTracksToSpotify(Integer.valueOf(id), maybeDeviceId.get(), Integer.valueOf(limit));
+        }
+
+        return "redirect:"+request.getHeader("Referer");
+    }
+
     @GetMapping("/party-details/{id}/unlock/{uri}")
     public String unlockTrack(@PathVariable String id, @PathVariable String uri, HttpServletRequest request){
         playerService.unlockTrack(Integer.valueOf(id), uri);

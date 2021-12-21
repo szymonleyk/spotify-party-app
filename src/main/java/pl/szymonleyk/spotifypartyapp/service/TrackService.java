@@ -6,7 +6,8 @@ import pl.szymonleyk.spotifypartyapp.model.Playlist;
 import pl.szymonleyk.spotifypartyapp.model.Track;
 import pl.szymonleyk.spotifypartyapp.repository.TrackRepository;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +28,11 @@ public class TrackService {
 
     public void save(Track track){
         trackRepository.save(track);
+    }
+
+    public Queue<String> findRandomTracks(int playlistId, int limit) {
+        List<String> tracks = trackRepository.findRandomTracks(playlistId).stream().limit(limit).map(t -> t.getUri()).collect(Collectors.toList());
+        Collections.shuffle(tracks);
+        return new LinkedList<>(tracks);
     }
 }
