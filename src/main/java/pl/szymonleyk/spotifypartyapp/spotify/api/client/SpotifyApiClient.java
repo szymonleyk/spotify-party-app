@@ -3,15 +3,11 @@ package pl.szymonleyk.spotifypartyapp.spotify.api.client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import pl.szymonleyk.spotifypartyapp.model.Track;
+import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.SearchResponse;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.DevicesResponse;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.PlaybackStateResponse;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.PlaylistsResponse;
 import pl.szymonleyk.spotifypartyapp.spotify.api.client.response.TracksResponse;
-import reactor.core.publisher.Flux;
-
-import java.time.Duration;
-import java.util.Queue;
 
 @Component
 @RequiredArgsConstructor
@@ -68,14 +64,13 @@ public class SpotifyApiClient {
                 .block();
     }
 
-//    public void addItemToPlaybackQueue(Queue<String> tracks, String deviceId) {
-//        webClient
-//                .post()
-//                .uri(uriBuilder -> uriBuilder.path("/me/player/queue").queryParam("uri", tracks.poll()).queryParam("device_id", deviceId).build())
-//                .retrieve()
-//                .bodyToMono(Void.class)
-//                .repeatWhen(f -> Flux.interval(Duration.ofSeconds(15)))
-//                .take(tracks.size())
-//                .blockLast();
-//    }
+    public SearchResponse search(String query) {
+        SearchResponse body = webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder.path("/search").queryParam("q", query).queryParam("type", "track").build())
+                .retrieve()
+                .bodyToMono(SearchResponse.class)
+                .block();
+        return body;
+    }
 }

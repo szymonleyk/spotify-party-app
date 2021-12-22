@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().ignoringAntMatchers("/h2-console/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/search").hasAnyAuthority("ADMIN", "USER")
+//                .antMatchers("/search").hasAnyAuthority("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()

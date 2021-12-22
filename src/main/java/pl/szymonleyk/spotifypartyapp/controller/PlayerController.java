@@ -39,6 +39,16 @@ public class PlayerController {
         return "redirect:"+request.getHeader("Referer");
     }
 
+    @GetMapping("/party-details/{id}/proposal/{uri}")
+    public String partyDetailsTracksProposal(@PathVariable String id, @PathVariable String uri, HttpServletRequest request){
+//        Optional<String> maybeDeviceId = playerService.getActiveDeviceId();
+//        if(maybeDeviceId.isPresent()) {
+//            playerService.sendTrackToSpotify(Integer.valueOf(id), uri, maybeDeviceId.get());
+//        }
+        // todo: zapisać do bazy, jako propozycję
+        return "redirect:"+request.getHeader("Referer");
+    }
+
     @GetMapping("/party-details/{id}/unlock/{uri}")
     public String unlockTrack(@PathVariable String id, @PathVariable String uri, HttpServletRequest request){
         playerService.unlockTrack(Integer.valueOf(id), uri);

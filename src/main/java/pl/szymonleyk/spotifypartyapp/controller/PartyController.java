@@ -36,7 +36,7 @@ public class PartyController {
     }
 
     @PostMapping("/party-add")
-    public String add(@ModelAttribute("party") Party party){
+    public String add(@ModelAttribute("party") Party party) {
         party.getPlaylists().forEach(playlist -> {
             playlist.setParty(party);
             TracksResponse tracksResponse = spotifyApiClient.getTracks(playlist.getSpotifyId());
@@ -47,19 +47,26 @@ public class PartyController {
     }
 
     @GetMapping("/party-list")
-    public String partyList(Model model){
+    public String partyList(Model model) {
         model.addAttribute("parties", partyService.findAll());
         return "party-list.html";
     }
 
-    @GetMapping("/party-details/{id}")
-    public String partyDetails(Model model, @PathVariable int id){
-        model.addAttribute("playlists", playlistService.findByPartyId(id));
-        return "party-details.html";
+    @GetMapping("/party-details/{partyId}")
+    public String partyDetails(Model model, @PathVariable int partyId) {
+        boolean isActiveSpotifyPlayer = spotifyApiClient.getDevices().getDevices().size() > 0;
+        if (isActiveSpotifyPlayer) {
+            model.addAttribute("playlists", playlistService.findByPartyId(partyId));
+            model.addAttribute("partyId", partyId);
+            return "party-details.html";
+        } else {
+            model.addAttribute("party", partyService.findById(Integer.valueOf(partyId)).get());
+            return "search.html";
+        }
     }
 
     @GetMapping("/party-details/{id}/tracks")
-    public String partyDetailsTracks(Model model, @PathVariable int id){
+    public String partyDetailsTracks(Model model, @PathVariable int id) {
         model.addAttribute("tracks", trackService.findByPlaylistId(id));
         return "party-details-tracks.html";
     }
