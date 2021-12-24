@@ -37,11 +37,3 @@ CREATE TABLE IF NOT EXISTS track
     is_active   boolean,
     FOREIGN KEY (playlist_id) REFERENCES playlist (id)
 );
-
-CREATE TABLE IF NOT EXISTS user
-(
-    id       int primary key auto_increment,
-    username varchar(255) not null,
-    password varchar(255) not null,
-    role     enum ('ADMIN', 'USER')
-);
