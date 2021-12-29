@@ -30,9 +30,21 @@ public class TrackService {
         trackRepository.save(track);
     }
 
-    public Queue<String> findRandomTracks(int playlistId, int limit) {
-        List<String> tracks = trackRepository.findRandomTracks(playlistId).stream().limit(limit).map(t -> t.getUri()).collect(Collectors.toList());
+    public Queue<Track> findRandomTracks(int playlistId, int limit) {
+        List<Track> tracks = trackRepository.findRandomTracks(playlistId).stream().limit(limit).collect(Collectors.toList());
         Collections.shuffle(tracks);
         return new LinkedList<>(tracks);
+    }
+
+    public List<Track> findByUri(String uri){
+        return trackRepository.findAllByUri(uri);
+    }
+
+    public Optional<Track> findById(Integer id){
+        return trackRepository.findById(id);
+    }
+
+    public List<Track> findBySpotifyId(String id){
+        return trackRepository.findAllBySpotifyId(id);
     }
 }

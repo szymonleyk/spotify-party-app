@@ -44,7 +44,7 @@
                 <div class="fw-normal track-name" th:text="${track.artists.get(0).name}"></div>
             </div>
 
-            <a class="play-button" th:href="@{/party-details/{id}/proposal/{uri}(id = ${party.id}, uri = ${track.uri})}"><svg height="28" role="img" width="28" viewBox="0 0 24 24" aria-hidden="true"><polygon points="21.57 12 5.98 3 5.98 21 21.57 12" fill="currentColor"></polygon></svg></a>
+            <a class="play-button" th:href="@{/party-details/{partyId}/suggestion/{trackSpotifyId}(partyId = ${party.id}, trackSpotifyId = ${track.id})}"><svg height="28" role="img" width="28" viewBox="0 0 24 24" aria-hidden="true"><polygon points="21.57 12 5.98 3 5.98 21 21.57 12" fill="currentColor"></polygon></svg></a>
         </li>
     </ol>
 </main>

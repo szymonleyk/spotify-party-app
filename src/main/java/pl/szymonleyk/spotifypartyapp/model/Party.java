@@ -29,4 +29,7 @@ public class Party {
 
     @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
     private List<Playlist> playlists;
+
+    @Column(name = "owner_spotify_user_id")
+    private String ownerSpotifyUserId;
 }

@@ -18,6 +18,7 @@ public class Track {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "spotify_id")
     private String spotifyId;
     private String uri;
     private String name;
@@ -35,7 +36,7 @@ public class Track {
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
 
-    public Track(pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.Track track, Playlist playlist){
+    public Track(pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.Track track){
         spotifyId = track.getId();
         uri = track.getUri();
         name = track.getName();
@@ -43,6 +44,10 @@ public class Track {
         popularity = track.getPopularity();
         type = track.getType();
         href = track.getHref();
+    }
+
+    public Track(pl.szymonleyk.spotifypartyapp.spotify.api.client.dto.Track track, Playlist playlist){
+        this(track);
         this.playlist = playlist;
     }
 }
