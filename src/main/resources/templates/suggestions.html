@@ -6,12 +6,16 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
     <link th:href="@{/styles/styles.css}" rel="stylesheet"/>
-    <title>Party details</title>
+    <title>Party details - tracks</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Spotify Party</a>
+
+
+        <a th:href="@{/party-details/{id}(id = ${party.id})}"><span
+                th:text="${party.name}"></span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon bg-secondary"></span>
@@ -21,27 +25,23 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/search/{partyId}(partyId = ${partyId})}">Search</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/suggestions/{partyId}(partyId = ${partyId})}">Suggested</a>
-                </li>
             </ul>
         </div>
     </div>
 </nav>
+
 <main>
-    <ol class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-start" th:each="playlist: ${playlists}">
+
+    <ol class="list-group list-group-numbered">
+        <li class="list-group-item d-flex justify-content-between align-items-start" th:each="suggestion: ${suggestions}">
             <div class="ms-2 me-auto">
-                <a th:href="@{/party-details/{id}/tracks(id = ${playlist.id})}" th:text="${playlist.name}"/>
-                <span class="badge bg-secondary rounded-pill" th:text="${playlist.tracks.size}"></span>
+                <div class="fw-normal track-name" th:text="${suggestion.track.name}"></div>
             </div>
-            <a th:if="${isOwner}" class="btn btn-secondary play-button" th:href="@{/party-details/{id}/play(id = ${playlist.id}, limit = 1)}">1</a>
-            <a th:if="${isOwner}" class="btn btn-secondary play-button" th:href="@{/party-details/{id}/play(id = ${playlist.id}, limit = 3)}">3</a>
+
+            <a th:if="${isOwner}" class="play-button" th:href="@{/suggestions/{suggestionId}/play/{trackId}(suggestionId = ${suggestion.id}, trackId = ${suggestion.track.id})}"><svg height="28" role="img" width="28" viewBox="0 0 24 24" aria-hidden="true"><polygon points="21.57 12 5.98 3 5.98 21 21.57 12" fill="currentColor"></polygon></svg></a>
         </li>
     </ol>
+
 </main>
 </body>
 </html>

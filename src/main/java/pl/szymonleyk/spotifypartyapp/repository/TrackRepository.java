@@ -12,9 +12,15 @@ import java.util.List;
 @Repository
 public interface TrackRepository extends JpaRepository<Track, Integer> {
     List<Track> findByPlaylistId(int id);
+
     Track findFirstByPlaylistAndUri(Playlist playlist, String uri);
+
     int countTracksByIsActiveAndPlaylistId(boolean isActive, int id);
 
     @Query("select t from Track t where t.playlist.id = :playlistId and t.isActive = true order by rand()")
     List<Track> findRandomTracks(int playlistId);
+
+    List<Track> findAllByUri(String uri);
+
+    List<Track> findAllBySpotifyId(String id);
 }

@@ -1,7 +1,7 @@
+-- drop table if exists suggestion;
 -- drop table if exists track;
 -- drop table if exists playlist;
 -- drop table if exists party;
--- drop table if exists user;
 
 CREATE TABLE IF NOT EXISTS party
 (
@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS party
     start_date  timestamp    not null,
     end_date    timestamp,
     description varchar(500),
-    image       varchar(500)
+    image       varchar(500),
+    owner_spotify_user_id varchar(255) not null
 );
 
 CREATE TABLE IF NOT EXISTS playlist
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS track
     uri         varchar(255) not null,
     name        varchar(255) not null,
     duration_ms int          not null,
-    playlist_id int          not null,
+    playlist_id int          null,
     popularity  int          not null,
     type        varchar(255) not null,
     href        varchar(255) not null,
@@ -38,10 +39,12 @@ CREATE TABLE IF NOT EXISTS track
     FOREIGN KEY (playlist_id) REFERENCES playlist (id)
 );
 
-CREATE TABLE IF NOT EXISTS user
+CREATE TABLE IF NOT EXISTS suggestion
 (
     id       int primary key auto_increment,
-    username varchar(255) not null,
-    password varchar(255) not null,
-    role     enum ('ADMIN', 'USER')
+    party_id int          not null,
+    track_id varchar(255) not null,
+    status   varchar(25)  not null,
+    FOREIGN KEY (party_id) REFERENCES party (id),
+    FOREIGN KEY (track_id) REFERENCES track (id)
 );

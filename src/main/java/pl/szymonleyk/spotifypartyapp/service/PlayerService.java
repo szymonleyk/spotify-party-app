@@ -24,26 +24,22 @@ public class PlayerService {
         return devices.stream().filter(d -> d.getIsActive()).map(d -> d.getId()).findFirst();
     }
 
-    public void sendTrackToSpotify(int playlistId, String uri, String deviceId) {
-        spotifyApiClient.addItemToPlaybackQueue(uri, deviceId);
-        setTrackInactive(playlistId, uri);
+    public void sendTrackToSpotify(Track track, String deviceId) {
+        spotifyApiClient.addItemToPlaybackQueue(track.getUri(), deviceId);
+        setTrackInactive(track);
     }
 
     public void sendRandomTracksToSpotify(int playlistId, String deviceId, int limit) {
-        Queue<String> tracks = trackService.findRandomTracks(playlistId, limit);
-        tracks.forEach(uri -> {
-            spotifyApiClient.addItemToPlaybackQueue(uri, deviceId);
-            setTrackInactive(playlistId, uri);
+        Queue<Track> tracks = trackService.findRandomTracks(playlistId, limit);
+        tracks.forEach(track -> {
+            spotifyApiClient.addItemToPlaybackQueue(track.getUri(), deviceId);
+            setTrackInactive(track);
         });
     }
 
-    private void setTrackInactive(int id, String uri) {
-        Optional<Playlist> maybePlaylist = playlistService.findById(id);
-        if (maybePlaylist.isPresent()) {
-            Track track = trackService.findByUri(maybePlaylist.get(), uri);
+    private void setTrackInactive(Track track) {
             track.setIsActive(false);
             trackService.save(track);
-        }
     }
 
     public void unlockTrack(int id, String uri) {
@@ -54,4 +50,5 @@ public class PlayerService {
             trackService.save(track);
         }
     }
+
 }

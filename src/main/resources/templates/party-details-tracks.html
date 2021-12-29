@@ -39,10 +39,10 @@
             </div>
 
 <!--            jeśli aktywny-->
-            <a th:if="${track.isActive}" class="play-button" th:href="@{/party-details/{id}/play/{uri}(id = ${track.playlist.id}, uri = ${track.uri})}"><svg height="28" role="img" width="28" viewBox="0 0 24 24" aria-hidden="true"><polygon points="21.57 12 5.98 3 5.98 21 21.57 12" fill="currentColor"></polygon></svg></a>
+            <a th:if="${track.isActive}" class="play-button" th:href="@{/party-details/{partyId}/playlists/{playlistId}/play/{uri}(partyId = ${track.playlist.party.id}, playlistId = ${track.playlist.id}, uri = ${track.uri})}"><svg height="28" role="img" width="28" viewBox="0 0 24 24" aria-hidden="true"><polygon points="21.57 12 5.98 3 5.98 21 21.57 12" fill="currentColor"></polygon></svg></a>
 
 <!--            jeśli nieaktywny to najpierw odblokuj-->
-            <a th:unless="${track.isActive}" class="padlock-button" th:href="@{/party-details/{id}/unlock/{uri}(id = ${track.playlist.id}, uri = ${track.uri})}">
+            <a th:unless="${track.isActive} or ${!isOwner}" class="padlock-button" th:href="@{/party-details/{id}/unlock/{uri}(id = ${track.playlist.id}, uri = ${track.uri})}">
                 <img th:src="@{/images/padlock.png}" alt="zablokowane" width="28px" />
             </a>
         </li>

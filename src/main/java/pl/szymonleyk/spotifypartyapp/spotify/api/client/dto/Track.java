@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,4 +19,5 @@ public class Track implements Serializable {
     private String type;
     private String uri;
     private String href;
+    private List<Artist> artists;
 }
